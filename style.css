@@ -1,35 +1,275 @@
 
 
+/* FAIXA ANIMADA */
 .top-banner {
-    height: 32px;
-    overflow: hidden;
-    background-color: black;
-    color: antiquewhite;
+  width: 100%;
+  overflow: hidden;
+  background-color: #111;
+  color: #fff;
+  font-size: 12px;
+  position: relative;
+  width: 120vw;
+  left: -10vw;
+}
+
+.banner-track {
+  display: flex;
+  width: fit-content;
+  animation: scroll 18s linear infinite;
+}
+
+.banner-track span {
+  padding: 10px 24px;
+  white-space: nowrap;
+}
+
+/* ANIMAÇÃO */
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.banner-words{
+    display: flex;
+    flex-direction: column;
+    animation: slideWords s infinite;
+
+}
+.banner-words span{
+    height:32px;
     display: flex;
     align-items: center;
     justify-content: center;
-   font-size: 12px;
+}
 
-}
-.banner-track{
-    display: flex;
-    width: fit-content;
-    animation: scroll 18s linear infinite;
-}
-.banner-track span{
-    padding: 1px 24px;
-    white-space: nowrap;
-}
-@keyframes scroll {
-    from{
-        transform: translateX(0);
+@keyframes slideWords {
+   0% {transform: translateY(0);}
+   33% {transform: translateY(0);}
+
+  36% {transform: translateY(-32px);}
+   33% {transform: translateY(-32px);}
+
+   69% {transform: translateY(-64px);}
+   100% {transform: translateY(-64px);}
     }
-    to{
-        transform: translateX(-100%);
-    }
+
+    .header {
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+  background-color: hsl(241, 232, 232);
+}
+
+/* LINHA SUPERIOR */
+.header-top {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+}
+
+/* SOCIAL - ESQUERDA */
+.social {
+  justify-self: start;
+  font-size: 14px;
+}
+
+/* LOGO - CENTRO REAL */
+.logo {
+  justify-self: center;
+  font-size: 22px;
+  font-family: 'Playfair Display', serif;
+}
+
+/* fundo embassado */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+  z-index: 998;
+}
+/*menu*/
+.menu {
+  position: fixed;
+  top: 0;
+  left: 0;              /* 👈 agora é esquerda */
+  height: 100vh;
+  width: 260px;
+  background: rgb(241, 232, 232);
+  
+
+  transform: translateX(-100%); /* começa fora da tela */
+  transition: transform 0.3s ease;
+
+  z-index: 10;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.menu.active {
+  transform: translateX(0);
+}
+.menu a {
+  font-size: 20px;      /* 👈 bem legível no celular */
+  font-weight: 500;
+  color: #111;
+  text-decoration: none;
+}
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 22px;
+  padding: 0;
+  margin-left: auto;   /* joga pro canto direito */
+  cursor: pointer;
+  line-height: 1;
+}
+.menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu li {
+  margin-bottom: 16px;
+}
+.menu li a {
+  font-size: 18px;
+  text-decoration: none;
+  color: #111;
+}
+.close-btn {
+  margin-left: 0;
+  margin-right: auto; /* empurra pra esquerda */
+  align-self: flex-start;
+}
+.menu ul {
+  width: 100%;
+  text-align: center;
+}
+.menu-btn {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: #111;
+}
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px); /* Safari */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 8;
+}
+
+.overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* BUSCA */
+.header-search {
+  position: relative;
+}
+
+.header-search i {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  font-size: 14px;
+}
+
+.header-search input {
+  width: 90%;
+  padding: 10px 12px 10px 36px; /* espaço pra lupa */
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  font-size: 11px;
+}
+.social a {
+  color: #111;
+  font-size: 20px;
+  text-decoration: none;
+}
+.social a {
+  font-size: 18px;
+}
+.social a:hover {
+  opacity: 0.7;
+}
+header{
+    border: #111;
+}
+    .logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;      /* 👈 maior, estilo logo */
+  font-weight: 700;
+  letter-spacing: 2px; /* dá presença */
+  color: #111;
+}
+.slider {
+  width: 100%;
+  overflow: hidden;
+}
+
+.slides {
+  position: relative;
+}
+
+.slide {
+  display: none;
+}
+
+.slide.active {
+  display: block;
+}
+
+.slide img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+@media (min-width: 768px) {
+  .slide img {
+    height: 380px;
+  }
+}
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: #ccc;
+  border-radius: 50%;
+}
+
+.dot.active {
+  background: #111;
 }
 body{
-
-
-    background-color: rgb(241, 232, 232);
+ background-color: rgb(241, 232, 232);
 }
