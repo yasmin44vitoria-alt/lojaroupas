@@ -74,8 +74,7 @@
   <form id="formProduto">
     <input type="text" id="nome" placeholder="Nome da peça" required>
     <input type="number" id="preco" placeholder="Preço" required>
-    <input type="text" id="imagem" placeholder="URL da imagem" required>
-
+    <input type="file" id="imagem" accept="image/*" required>
     <button type="submit">Salvar Produto</button>
   </form>
 
@@ -85,43 +84,62 @@
 </div>
 
 <script>
-const senha = prompt("Digite a senha:");
+const CLOUD_NAME = "damrknw4o";
+const UPLOAD_PRESET = "ousi_vivence";
 
-if (senha !== "1234") {
-  document.body.innerHTML = "<h1 style='text-align:center'>Acesso negado</h1>";
-}
+const form = document.getElementById('formProduto');
 
-// preview da imagem
-const inputImagem = document.getElementById('imagem');
-const preview = document.getElementById('preview');
-
-inputImagem.addEventListener('input', () => {
-  const url = inputImagem.value;
-
-  preview.innerHTML = `
-    <p>Pré-visualização</p>
-    <img src="${url}" />
-  `;
-});
-
-// salvar produto
-document.getElementById('formProduto').addEventListener('submit', function(e){
+form.addEventListener('submit', async function(e){
   e.preventDefault();
 
-  const produto = {
-    nome: document.getElementById('nome').value,
-    preco: document.getElementById('preco').value,
-    imagem: document.getElementById('imagem').value
-  };
+  const nome = document.getElementById('nome').value;
+  const preco = document.getElementById('preco').value;
+  const file = document.getElementById('imagem').files[0];
 
-  let produtos = JSON.parse(localStorage.getItem('produtos')) || [];
-  produtos.push(produto);
+  if (!file) {
+    alert("Escolha uma imagem!");
+    return;
+  }
 
-  localStorage.setItem('produtos', JSON.stringify(produtos));
+  // upload da imagem
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("upload_preset", UPLOAD_PRESET);
 
-  alert("Produto salvo!");
+  try {
+    const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await res.json();
+
+    if (!data.secure_url) {
+      alert("Erro no upload");
+      console.log(data);
+      return;
+    }
+
+    const produto = {
+      nome: nome,
+      preco: preco,
+      imagem: data.secure_url
+    };
+
+    let produtos = JSON.parse(localStorage.getItem('produtos')) || [];
+    produtos.push(produto);
+
+    localStorage.setItem('produtos', JSON.stringify(produtos));
+
+    alert("Produto salvo com sucesso!");
+
+    form.reset();
+
+  } catch (error) {
+    console.error(error);
+    alert("Erro ao enviar imagem");
+  }
 });
 </script>
-
 </body>
 </html>
