@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Painel R7Y</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 14px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #111;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .preview {
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .preview img {
+      width: 100%;
+      max-height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .preview p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Painel R7Y</h2>
+
+  <form id="formProduto">
+    <input type="text" id="nome" placeholder="Nome da peça" required>
+    <input type="number" id="preco" placeholder="Preço" required>
+    <input type="text" id="imagem" placeholder="URL da imagem" required>
+
+    <button type="submit">Salvar Produto</button>
+  </form>
+
+  <div class="preview" id="preview">
+    <p>Pré-visualização</p>
+  </div>
+</div>
+
+<script>
+const senha = prompt("Digite a senha:");
+
+if (senha !== "1234") {
+  document.body.innerHTML = "<h1 style='text-align:center'>Acesso negado</h1>";
+}
+
+// preview da imagem
+const inputImagem = document.getElementById('imagem');
+const preview = document.getElementById('preview');
+
+inputImagem.addEventListener('input', () => {
+  const url = inputImagem.value;
+
+  preview.innerHTML = `
+    <p>Pré-visualização</p>
+    <img src="${url}" />
+  `;
+});
+
+// salvar produto
+document.getElementById('formProduto').addEventListener('submit', function(e){
+  e.preventDefault();
+
+  const produto = {
+    nome: document.getElementById('nome').value,
+    preco: document.getElementById('preco').value,
+    imagem: document.getElementById('imagem').value
+  };
+
+  let produtos = JSON.parse(localStorage.getItem('produtos')) || [];
+  produtos.push(produto);
+
+  localStorage.setItem('produtos', JSON.stringify(produtos));
+
+  alert("Produto salvo!");
+});
+</script>
+
+</body>
+</html>

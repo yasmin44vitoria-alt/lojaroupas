@@ -273,3 +273,38 @@ header{
 body{
  background-color: rgb(241, 232, 232);
 }
+.produtos {
+  padding: 20px;
+}
+
+#lista-produtos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.card-info {
+  padding: 10px;
+}
+
+.card-info h3 {
+  font-size: 14px;
+  margin: 0;
+}
+
+.card-info p {
+  font-size: 13px;
+  color: #555;
+}
